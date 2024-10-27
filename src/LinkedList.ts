@@ -1,5 +1,5 @@
 // Define the Node class for individual nodes in the linked list
-class Node<T> {
+export class Node<T> {
   value: T;
   next: Node<T> | null = null;
 
@@ -9,7 +9,13 @@ class Node<T> {
 }
 
 // Define the LinkedList class for handling nodes
-class LinkedList<T> {
+export class LinkedList<T> {
+  constructor(initialValue:T[]) {
+    initialValue.forEach(value => {
+      this.push(value);
+    })
+    console.log(this);
+  }
   private head: Node<T> | null = null;
   private size: number = 0;
 
@@ -123,4 +129,3 @@ class LinkedList<T> {
   }
 }
 
-export default LinkedList;
