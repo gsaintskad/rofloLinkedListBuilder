@@ -1,4 +1,5 @@
 import React from "react";
+import {HandledNode} from "@/LinkedList.ts";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +11,8 @@ import {
 
 
 interface ListNodeProps<T extends number | string> {
-  node: T;
-  nextNode: T;
+  node: HandledNode<T>;
+  nextNode: HandledNode<T>;
 }
 
 const ListNode = <T extends number | string>(
@@ -23,16 +24,16 @@ const ListNode = <T extends number | string>(
         <DropdownMenuTrigger className={'h-1/5 z-20'}>
           <div
             className={
-              "aspect-square rounded-full bg-green-800 h-full flex items-center justify-center text-white text-4xl"
+              "aspect-square rounded-full outline outline-4 outline-white -translate-y-0.5  bg-green-800 h-full flex items-center justify-center text-white text-1.5em"
             }
           >
-            {props.node.toString()}
+            {props.node.value.toString()}
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>Node : {props.node!.toString()}</DropdownMenuLabel>
+          <DropdownMenuLabel>Node : {props.node!.value.toString()}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Next Node : {props.nextNode?.toString()?props.nextNode?.toString():"null"}</DropdownMenuItem>
+          <DropdownMenuItem>Next Node : {props.nextNode?.value.toString()?props.nextNode.value?.toString():"null"}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

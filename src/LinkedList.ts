@@ -1,21 +1,31 @@
+
+import ShortUniqueId from 'short-unique-id';
+const uid = new ShortUniqueId({length:20});
+
 // Define the Node class for individual nodes in the linked list
 export class Node<T> {
   value: T;
+  id:string;
   next: Node<T> | null = null;
 
   constructor(value: T) {
     this.value = value;
+    this.id=uid.rnd();
   }
 }
-
+export interface HandledNode<T> {value:T;id:string;}
 // Define the LinkedList class for handling nodes
 export class LinkedList<T> {
+
   constructor(initialValue:T[]) {
     initialValue.forEach(value => {
       this.push(value);
+
     })
+    this.id = uid.rnd();
     console.log(this);
   }
+  private id:string;
   private head: Node<T> | null = null;
   private size: number = 0;
 
@@ -116,13 +126,12 @@ export class LinkedList<T> {
 
     return current ? current.value : null;
   }
-
   // Helper method to get all node values (for display or testing)
-  toArray(): T[] {
-    const values: T[] = [];
+  toArray(): HandledNode<T>[] {
+    const values: HandledNode<T>[] = [];
     let current: Node<T> | null = this.head;
     while (current) {
-      values.push(current.value);
+      values.push({value:current.value, id:current.id});
       current = current.next;
     }
     return values;

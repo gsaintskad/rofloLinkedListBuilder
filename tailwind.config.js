@@ -6,6 +6,16 @@ export default {
   ],
   theme: {
   	extend: {
+		spacing: {
+			'1em': '1em',
+			'1.5em': '1.5em',
+			'2em': '2em',
+		},
+		fontSize: {
+			'1em': '1em',
+			'1.25em': '1.25em',
+			'1.5em': '1.5em',
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
