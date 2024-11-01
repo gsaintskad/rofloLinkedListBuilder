@@ -14,7 +14,7 @@ export class Node<T> {
     this.id=uid.rnd();
   }
 }
-export interface HandledNode<T> {value:T;id:string;}
+export interface HandledNode<T> {value:T;id:string;state?:'primary'|'secondary'|'danger'}
 // Define the LinkedList class for handling nodes
 export class LinkedList<T> {
 
@@ -35,7 +35,7 @@ export class LinkedList<T> {
   // private current:Node<T> | null ;
   public someAlgorithm=()=>{
     let current=this.head;
-    while(current?.next !== null){
+    while(current!== null){
 
      this.iterationStory.push(current!.id);
      current=current!.next;

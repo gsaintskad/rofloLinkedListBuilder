@@ -31,7 +31,7 @@ const ListNode = <T extends number | string>(
         <DropdownMenuTrigger className={'h-1/5 z-20'}>
           <div
             className={
-              ` ${colorClasses[props.state!] || 'bg-gray-500'}aspect-square rounded-full outline outline-4 outline-white -translate-y-0.5  h-full flex items-center justify-center text-white text-1.5em`
+              ` ${colorClasses[props.state!] || colorClasses.primary} aspect-square rounded-full outline outline-4 outline-white -translate-y-0.5  h-full flex items-center justify-center text-white text-1.5em`
             }
           >
             {props.node.value.toString()}
