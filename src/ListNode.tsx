@@ -13,6 +13,7 @@ import {
 interface ListNodeProps<T extends number | string> {
   node: HandledNode<T>;
   nextNode: HandledNode<T>;
+  id:string;
 }
 
 const ListNode = <T extends number | string>(
