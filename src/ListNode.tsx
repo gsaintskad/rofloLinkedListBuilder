@@ -13,19 +13,25 @@ import {
 interface ListNodeProps<T extends number | string> {
   node: HandledNode<T>;
   nextNode: HandledNode<T>;
+  state?:'primary'|'secondary'|'danger';
   id:string;
 }
 
 const ListNode = <T extends number | string>(
   props: ListNodeProps<T>,
 ): JSX.Element => {
+  const colorClasses = {
+    primary: 'bg-blue-500',
+    secondary: 'bg-green-500',
+    danger: 'bg-red-500',
+  };
   return (
     <div className={"h-full content-center"}>
       <DropdownMenu>
         <DropdownMenuTrigger className={'h-1/5 z-20'}>
           <div
             className={
-              "aspect-square rounded-full outline outline-4 outline-white -translate-y-0.5  bg-green-800 h-full flex items-center justify-center text-white text-1.5em"
+              ` ${colorClasses[props.state!] || 'bg-gray-500'}aspect-square rounded-full outline outline-4 outline-white -translate-y-0.5  h-full flex items-center justify-center text-white text-1.5em`
             }
           >
             {props.node.value.toString()}

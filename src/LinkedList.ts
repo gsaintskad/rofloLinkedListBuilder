@@ -6,6 +6,7 @@ const uid = new ShortUniqueId({length:20});
 export class Node<T> {
   value: T;
   id:string;
+
   next: Node<T> | null = null;
 
   constructor(value: T) {
@@ -23,11 +24,24 @@ export class LinkedList<T> {
 
     })
     this.id = uid.rnd();
+
     console.log(this);
   }
   private id:string;
   private head: Node<T> | null = null;
   private size: number = 0;
+  public iterationStory:string[]=[];
+
+  // private current:Node<T> | null ;
+  public someAlgorithm=()=>{
+    let current=this.head;
+    while(current?.next !== null){
+
+     this.iterationStory.push(current!.id);
+     current=current!.next;
+    }
+  }
+
 
   // Method to push a new node to the end of the list
   push(value: T): void {
