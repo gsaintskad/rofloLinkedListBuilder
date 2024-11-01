@@ -48,7 +48,7 @@ const LinkedListComp = <T extends number | string>(props: LLComp<T>) => {
             },1000)
 
         }
-      }, 1000); // Adjust the interval as needed
+      }, 100); // Adjust the interval as needed
       return () => {
         clearTimeout(timer);
       }; // Cleanup the timer
