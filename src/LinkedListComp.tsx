@@ -4,11 +4,10 @@ import ListNode from "./ListNode";
 import { useEffect, useState } from "react";
 import React from "react";
 
-import {node} from "globals";
-
 interface LLComp<T extends number | string> {
   list: LinkedList<T>;
 }
+type nodeState = "primary" | "secondary" | "danger";
 
 const LinkedListComp = <T extends number | string>(props: LLComp<T>) => {
   const [nodeArr, setNodeArr] = useState(props.list.toArray());
@@ -16,49 +15,53 @@ const LinkedListComp = <T extends number | string>(props: LLComp<T>) => {
     props.list.iterationStory,
   );
   const [currentIndex, setCurrentIndex] = useState(0);
-  useEffect(() => {
-    console.log(
-      `actual index ${currentIndex} :${iterationStory[currentIndex]}`,
-    );
-    if (currentIndex < iterationStory.length) {
-      // Set a timer to update the node state based on iterationStory
-      const timer = setTimeout(() => {
-        const newStoryAction = iterationStory[currentIndex];
 
-        // Process the action in iterationStory[currentIndex]
+  const startAnimationHandler =async  () => {
+    setCurrentIndex(0); // Reset to start from the beginning each time
+
+    const animate = (index: number) => {
+      if (index < iterationStory.length) {
+        const newStoryAction = iterationStory[index];
+
+        // Update node states based on the current action
         const updatedNodes = nodeArr.map((node) => {
           if (newStoryAction.includes(node.id)) {
-            // Example: Add logic to change node state based on iterationStory
-            return { ...node, state: "danger" }; // Assuming `active` as a sample property
+            return { ...node, state: "danger" };
           }
           return { ...node, state: "primary" };
         });
 
-        // Update the node array and move to the next story item
         setNodeArr(updatedNodes as HandledNode<T>[]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
+        setCurrentIndex(index + 1);
 
-        if (currentIndex === iterationStory.length-1) {
-          setTimeout(()=>{
-            const updatedNodes = nodeArr.map((node,i)=>{
+        // Set the timeout for the next iteration
+        setTimeout(() => animate(index + 1), 500);
+      } else {
+        // Reset node states to "primary" after the last animation step
+        setTimeout(() => {
+          const resetNodes = nodeArr.map((node) => ({
+            ...node,
+            state: "primary",
+          }));
+          setNodeArr(resetNodes as HandledNode<T>[]);
+        }, 1000);
+      }
+    };
 
-              return { ...node, state: "primary" };
-            });
-            setNodeArr(updatedNodes as HandledNode<T>[]);
-            },1000)
+    animate(0); // Start the animation from the first index
+  };
 
-        }
-      }, 100); // Adjust the interval as needed
-      return () => {
-        clearTimeout(timer);
-      }; // Cleanup the timer
-    }
-  }, [currentIndex, iterationStory, nodeArr]);
   return (
     <div
-      className={"flex bg-gray-800 w-full h-full"}
+      className={"flex bg-gray-800 w-full h-full justify-center items-center"}
       key={"GRAPH-" + nodeArr[0].id}
     >
+      <button
+        className={"bg-green-700 text-white h-1/5 m-6 text-4xl rounded-xl p-3"}
+        onClick={startAnimationHandler}
+      >
+        Start Animation
+      </button>
       {nodeArr.map((nd, i) => {
         return (
           <React.Fragment key={`REACT.FRAGMENT-${nd.id}`}>

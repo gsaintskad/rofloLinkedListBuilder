@@ -1,47 +1,48 @@
-
-import ShortUniqueId from 'short-unique-id';
-const uid = new ShortUniqueId({length:20});
+import ShortUniqueId from "short-unique-id";
+const uid = new ShortUniqueId({ length: 20 });
 
 // Define the Node class for individual nodes in the linked list
 export class Node<T> {
   value: T;
-  id:string;
-
+  id: string;
   next: Node<T> | null = null;
 
   constructor(value: T) {
     this.value = value;
-    this.id=uid.rnd();
+    this.id = uid.rnd();
   }
 }
-export interface HandledNode<T> {value:T;id:string;state?:'primary'|'secondary'|'danger'}
+export interface HandledNode<T> {
+  value: T;
+  id: string;
+  state?: "primary" | "secondary" | "danger";
+}
 // Define the LinkedList class for handling nodes
 export class LinkedList<T> {
-
-  constructor(initialValue:T[]) {
-    initialValue.forEach(value => {
+  constructor(initialValue: T[]) {
+    initialValue.forEach((value) => {
       this.push(value);
-
-    })
+    });
     this.id = uid.rnd();
 
     console.log(this);
   }
-  private id:string;
+  private id: string;
   private head: Node<T> | null = null;
   private size: number = 0;
-  public iterationStory:string[]=[];
 
-  // private current:Node<T> | null ;
-  public someAlgorithm=()=>{
-    let current=this.head;
-    while(current!== null){
 
-     this.iterationStory.push(current!.id);
-     current=current!.next;
+  
+  public iterationStory: string[] = [];
+
+  public someAlgorithm = () => {
+    let current = this.head;
+    while (current !== null) {
+      this.iterationStory.push(current!.id);
+      
+      current = current!.next;
     }
-  }
-
+  };
 
   // Method to push a new node to the end of the list
   push(value: T): void {
@@ -145,10 +146,9 @@ export class LinkedList<T> {
     const values: HandledNode<T>[] = [];
     let current: Node<T> | null = this.head;
     while (current) {
-      values.push({value:current.value, id:current.id});
+      values.push({ value: current.value, id: current.id });
       current = current.next;
     }
     return values;
   }
 }
-

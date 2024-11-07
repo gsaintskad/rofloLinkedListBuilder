@@ -15,6 +15,8 @@ export default {
 			'1em': '1em',
 			'1.25em': '1.25em',
 			'1.5em': '1.5em',
+			'fluid': 'clamp(1rem, 2vw + 1rem, 2.5rem)',
+
 		},
   		borderRadius: {
   			lg: 'var(--radius)',
